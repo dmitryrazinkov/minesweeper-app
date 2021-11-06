@@ -27,6 +27,10 @@
     "jsx": "react-jsx",
     "isolatedModules": true
   },
+  "typeRoots": [
+    "./node_modules/@types",
+    "src/types/**/*"
+  ],
   "include": [
     "src"
   ]
