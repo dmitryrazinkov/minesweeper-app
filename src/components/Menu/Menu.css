@@ -1,0 +1,32 @@
+.menu {
+    position: relative;
+    padding: 8px 16px;
+    background-color: #f0f3f4;
+}
+
+.config-form {
+    width: 240px;
+    padding: 8px;
+    border: 4px;
+    display: grid;
+    grid-gap: 8px;
+    position: absolute;
+    left: 16px;
+    top: 42px;
+    background-color: #f0f3f4;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 6%), 0 6px 12px rgb(0 0 0 / 6%), 0 0 16px rgb(0 0 0 / 6%);
+}
+
+.form-input {
+    display: grid;
+    grid-gap: 4px;
+}
+
+.form-input__label {
+    font-size: 12px;
+}
+
+.form-input__error {
+    color: red;
+    font-size: 12px;
+}

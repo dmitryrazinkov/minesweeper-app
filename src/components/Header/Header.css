@@ -1,0 +1,10 @@
+.board-header {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.board-header__time {
+    text-align: end;
+}
