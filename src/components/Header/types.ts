@@ -1,4 +1,6 @@
 export interface HeaderProps {
-  leftBombs: number,
+  bombsLeft: number,
+  gameOver: boolean,
+  winner: boolean,
   startTime?: Date
 }

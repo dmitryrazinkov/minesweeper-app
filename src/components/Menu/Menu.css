@@ -15,6 +15,7 @@
     top: 42px;
     background-color: #f0f3f4;
     box-shadow: 0 4px 8px rgb(0 0 0 / 6%), 0 6px 12px rgb(0 0 0 / 6%), 0 0 16px rgb(0 0 0 / 6%);
+    z-index: 10;
 }
 
 .form-input {

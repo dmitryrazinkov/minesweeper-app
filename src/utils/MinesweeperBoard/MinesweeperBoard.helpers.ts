@@ -64,3 +64,9 @@ export function getNeighborCells(xCoord: number, yCoord: number, width: number, 
 
   return cells;
 }
+
+export function isOpened(xCoord: number, yCoord: number, width: number, openedCells: TypedFastBitSet) {
+  const positionInBitSet = xCoord  + yCoord * width
+
+  return openedCells.has(positionInBitSet);
+}

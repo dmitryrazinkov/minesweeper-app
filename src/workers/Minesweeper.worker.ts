@@ -1,6 +1,6 @@
 import  * as Comlink  from 'comlink';
 import TypedFastBitSet from "typedfastbitset";
-import {calcBombsAround, getNeighborCells} from "../utils/MinesweeperBoard/MinesweeperBoard.helpers";
+import {calcBombsAround, getNeighborCells, isOpened} from "../utils/MinesweeperBoard/MinesweeperBoard.helpers";
 import {TypedFastBitSetExt} from "../types/typedfastbitset-extension";
 
 export class MinesweeperWorker{
@@ -25,7 +25,7 @@ export class MinesweeperWorker{
         let jValue = map.has(j);
         let iValue = map.has(i);
 
-        if (iValue == jValue) {
+        if (iValue === jValue) {
           continue;
         }
 
@@ -38,34 +38,42 @@ export class MinesweeperWorker{
     map.trim();
 
     // todo 'typedfastbitset' lib has an issue with typings, need to make a PR
-    return Comlink.transfer((<TypedFastBitSetExt>map).words.buffer, [(<TypedFastBitSetExt>map).words.buffer]);
+    return Comlink.transfer((map as TypedFastBitSetExt).words.buffer, [(map as TypedFastBitSetExt).words.buffer]);
   }
 
-  //TODO
-  revealCell(xCoord: number, yCoord: number, width: number, height: number, openedCellsBuf: ArrayBuffer, bombsLocationsBuf: ArrayBuffer) {
-    const openedCells: TypedFastBitSet = (<typeof TypedFastBitSetExt>TypedFastBitSet).fromWords(new Uint32Array(openedCellsBuf));
-    const bombsLocations: TypedFastBitSet = (<typeof TypedFastBitSetExt>TypedFastBitSet).fromWords(new Uint32Array(bombsLocationsBuf));
+  revealCell(xCoord: number, yCoord: number, width: number, height: number, openedCellsBuf: ArrayBuffer, bombsLocationsBuf: ArrayBuffer, flaggedCellsBuf: ArrayBuffer) {
+    const bombsLocations = (TypedFastBitSet as typeof TypedFastBitSetExt).fromWords(new Uint32Array(bombsLocationsBuf));
+    const openedCells = (TypedFastBitSet as typeof TypedFastBitSetExt).fromWords(new Uint32Array(openedCellsBuf));
+    const flaggedCells = (TypedFastBitSet as typeof TypedFastBitSetExt).fromWords(new Uint32Array(flaggedCellsBuf));
 
-    // use stack instead of recursive calls in order to avoid call stack exceed
-    const stack = [{xCoord, yCoord}];
-    const processedItems = new TypedFastBitSet([xCoord  + yCoord*width]);
+    // We use stack instead of recursive calls in order to avoid call stack exceed.
+    const stack: Array<number> = [xCoord  + yCoord*height];
+    const processedItems = new TypedFastBitSet([xCoord  + yCoord*height]);
 
     while (stack.length > 0) {
-
-      const cell = stack.pop();
-      const bombsAround = calcBombsAround(cell!.xCoord, cell!.yCoord, width, height, bombsLocations);
+      const location = stack.pop()!;
+      let cell = {xCoord: location % width, yCoord: Math.floor(location/height)};
+      const bombsAround = calcBombsAround(cell.xCoord, cell.yCoord, width, height, bombsLocations);
       if (bombsAround === 0) {
         getNeighborCells(cell!.xCoord, cell!.yCoord, width, height).forEach(({xCoord, yCoord}) => {
-          if (!openedCells.has(xCoord + yCoord*width) && !processedItems.has(xCoord  + yCoord*width)) {
-            stack.push({xCoord, yCoord});
-            processedItems.add(xCoord  + yCoord*width);
+          const location = xCoord  + yCoord*width;
+          if (!isOpened(xCoord, yCoord, width, openedCells) && !processedItems.has(location)) {
+            stack.push(location);
+            processedItems.add(location);
           }
         })
       }
 
-      const positionInBitSet = cell!.xCoord  + cell!.yCoord * width;
+      const positionInBitSet = cell.xCoord  + cell.yCoord * width;
       openedCells.add(positionInBitSet);
+      flaggedCells.remove(positionInBitSet);
     }
+
+    const openedCellsRes = (openedCells as TypedFastBitSetExt).words;
+    const bombsLocationsRes = (bombsLocations as TypedFastBitSetExt).words;
+    const flaggedCellsRes = (flaggedCells as TypedFastBitSetExt).words;
+
+    return Comlink.transfer({openedCellsRes, bombsLocationsRes, flaggedCellsRes}, [openedCellsRes.buffer, bombsLocationsRes.buffer, flaggedCellsRes.buffer]);
   }
 
 }
