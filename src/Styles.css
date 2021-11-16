@@ -1,3 +1,5 @@
+@import "Button.css";
+
 /* always show scrollbar on mac */
 ::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -13,25 +15,4 @@
 
 ::-webkit-scrollbar-track {
     background: #bebeb8;
-}
-
-button {
-    color: #fff;
-    background-color: #5bc0de;
-
-    cursor: pointer;
-    border: 1px solid transparent;
-    white-space: nowrap;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 20px;
-    border-radius: 4px;
-}
-
-button:hover {
-    background-color: #3ca8c9;
-}
-
-button:active {
-    background-color: #21768c;
 }

@@ -1,8 +1,10 @@
 import {HeaderProps} from "./types";
 import {useEffect, useState} from "react";
-import './Header.css'
+import './Header.css';
+import deadFace from './dead-face.jpeg';
+import happyFace from './happy-face.jpeg';
 
-function Header({bombsLeft, startTime, gameOver, winner}: HeaderProps) {
+function Header({bombsLeft, startTime, gameOver, winner, onHeaderBtnClick}: HeaderProps) {
   const [timePast, setTimePast] = useState(0);
 
   useEffect(() => {
@@ -25,7 +27,8 @@ function Header({bombsLeft, startTime, gameOver, winner}: HeaderProps) {
   return (
     <header className="board-header">
       <span className="board-header__bombs">{bombsLeft}</span>
-      <button className="board-header__btn">happy face</button>
+      <button className="board-header__btn" onClick={onHeaderBtnClick} style={{backgroundImage: `url(${gameOver? deadFace: happyFace})`}}>
+      </button>
       <span className="board-header__time">{timePast}</span>
     </header>
   )

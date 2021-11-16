@@ -9,7 +9,7 @@ import {calcBombsAround, isOpened} from "../../utils/MinesweeperBoard/Minesweepe
 import {LoaderContext} from "../MinesweeperGame/loader-context";
 import {debounce} from "../../utils/debounce";
 
-function Field({board, startTime}: FieldProps) {
+function Field({board, startTime, onHeaderBtnClick}: FieldProps) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const flagImage = useRef<HTMLImageElement>(null);
   const bombImage = useRef<HTMLImageElement>(null);
@@ -216,7 +216,7 @@ function Field({board, startTime}: FieldProps) {
 
   return (
     <div className="field">
-      <Header bombsLeft={bombsLeft} gameOver={gameOver} winner={winner} startTime={startTime}/>
+      <Header bombsLeft={bombsLeft} gameOver={gameOver} winner={winner} startTime={startTime} onHeaderBtnClick={onHeaderBtnClick}/>
       <div className='container' ref={scrollContainer} onScroll={onScroll}>
         <div className='scroll-container' style={{width: cellWidth * board.width, height: cellWidth * board.height}}>
           <canvas ref={canvas}

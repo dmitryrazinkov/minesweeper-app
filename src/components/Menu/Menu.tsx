@@ -61,7 +61,7 @@ function Menu(props: {config: GameConfig, onConfigChanged: (config: GameConfig) 
 
   return (
     <nav className="menu">
-      <button onClick={onSettingsClick}>Settings</button>
+      <button className="button" onClick={onSettingsClick}>Settings</button>
 
       {isMenuShown && <form ref={menu} className="config-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-input">
@@ -91,7 +91,7 @@ function Menu(props: {config: GameConfig, onConfigChanged: (config: GameConfig) 
           />
           {errors.bombs && <span className="form-input__error" role="alert">{getErrorMessage(errors.bombs)}</span>}
         </div>
-        <button type="submit"> New Game </button>
+        <button className="button" type="submit"> New Game </button>
       </form>}
     </nav>
   )

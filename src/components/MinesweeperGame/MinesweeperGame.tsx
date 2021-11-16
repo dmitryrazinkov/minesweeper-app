@@ -44,6 +44,9 @@ function MinesweeperGame() {
   }
 
   const startNewGame = async (newConfig?: GameConfig) => {
+    if (isLoadingInternal) {
+      return;
+    }
     const actualConfig = newConfig ?? config;
     if (newConfig) {
       setConfig(newConfig);
@@ -65,7 +68,7 @@ function MinesweeperGame() {
       <article className="minesweeper-game">
         <Menu config={config} onConfigChanged={startNewGame}/>
         <main className="minesweeper-game__board">
-          {board && startTime && <Field board={board} startTime={startTime}/>}
+          {board && startTime && <Field board={board} startTime={startTime} onHeaderBtnClick={() => startNewGame()}/>}
         </main>
         {isLoading && <div className="blocker"><img src={spinner} alt="Loading wheel"/></div>}
       </article>
