@@ -1,38 +1,38 @@
 .field {
-    display: grid;
-    justify-content: center;
-    grid-gap: 8px;
+  display: grid;
+  justify-content: center;
+  grid-gap: 8px;
 }
 
 .container {
-    overflow: auto;
-    max-width: 800px;
-    max-height: 800px;
-    justify-self: center;
+  overflow: auto;
+  max-width: 800px;
+  max-height: 800px;
+  justify-self: center;
 }
 
 .scroll-container {
-    position: relative;
+  position: relative;
 }
 
-canvas {
-    position: absolute;
+.visible-field {
+  position: absolute;
 }
 
 .field img {
-    display: none;
-    width: 12px;
-    height: 12px;
+  display: none;
+  width: 12px;
+  height: 12px;
 }
 
 @media (max-height: 800px) {
-    .container {
-        max-height: 600px;
-    }
+  .container {
+    max-height: 600px;
+  }
 }
 
 @media (max-height: 700px) {
-    .container {
-        max-height: 500px;
-    }
+  .container {
+    max-height: 500px;
+  }
 }

@@ -1,32 +1,31 @@
 .board-header {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
 }
 
 .board-header__time {
-    text-align: end;
+  text-align: end;
 }
 
 .board-header__btn {
-    width: 40px;
-    height: 40px;
-    background-size: 32px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: #f0f8ff;
-    cursor: pointer;
-    border: 1px solid transparent;
-    padding: 6px;
-    border-radius: 2px;
+  width: 40px;
+  height: 40px;
+  background-size: 32px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #f0f8ff;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 6px;
+  border-radius: 2px;
 }
 
 .board-header__btn:hover {
-    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.1);
 }
 
 .board-header__btn:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
-

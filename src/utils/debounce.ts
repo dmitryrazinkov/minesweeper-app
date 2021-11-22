@@ -1,4 +1,4 @@
-export function debounce<T extends Function>(callback:T, debounceTime = 0): T {
+export function debounce<T extends Function>(callback: T, debounceTime = 0): T {
   let timeoutId: NodeJS.Timeout;
 
   return ((...args: any[]) => {

@@ -1,7 +1,6 @@
-import TypedFastBitSet from "typedfastbitset";
+import TypedFastBitSet from 'typedfastbitset';
 
 declare class TypedFastBitSetExt extends TypedFastBitSet {
-  words: Uint32Array
+  words: Uint32Array;
   static fromWords: (array: Uint32Array) => TypedFastBitSet;
 }
-

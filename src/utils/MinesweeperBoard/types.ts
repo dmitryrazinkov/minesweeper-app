@@ -1,3 +1,4 @@
 export interface CellLocation {
-  xCoord: number, yCoord: number
+  xCoord: number;
+  yCoord: number;
 }
